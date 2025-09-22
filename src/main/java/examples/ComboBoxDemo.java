@@ -1,6 +1,6 @@
 package examples;
 
-import translation.CanadaTranslator;
+import translation.JSONTranslator;
 import translation.Translator;
 
 import javax.swing.*;
@@ -15,7 +15,7 @@ public class ComboBoxDemo {
             JPanel languagePanel = new JPanel();
             languagePanel.add(new JLabel("Language:"));
 
-            Translator translator = new CanadaTranslator();
+            Translator translator = new JSONTranslator();
 
             // create combobox, add country codes into it, and add it to our panel
             JComboBox<String> languageComboBox = new JComboBox<>();

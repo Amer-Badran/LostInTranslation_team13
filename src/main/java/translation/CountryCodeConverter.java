@@ -14,8 +14,8 @@ import java.util.Map;
  */
 public class CountryCodeConverter {
 
-    private Map<String, String> countryCodeToCountry = new HashMap<>();
-    private Map<String, String> countryToCountryCode = new HashMap<>();
+    private Map<String, String> countryCodeToCountry = new CaseInsensitiveMap();
+    private Map<String, String> countryToCountryCode = new CaseInsensitiveMap();
 
     /**
      * Default constructor that loads the country codes from "country-codes.txt"
@@ -44,7 +44,8 @@ public class CountryCodeConverter {
                 String[] parts = line.split("\t");
                 String code = parts[2];
                 String country = parts[0];
-                countryCodeToCountry.put(code, country);
+                countryCodeToCountry.put(code.toUpperCase(), country);
+                countryToCountryCode.put(country, code.toUpperCase());
             }
         } catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -69,12 +70,7 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        for (Map.Entry<String, String> entry : countryCodeToCountry.entrySet()) {
-            if (entry.getValue().equals(country)) {
-                return entry.getKey();
-            }
-        }
-        return null;
+        return countryToCountryCode.get(country);
     }
 
     /**
